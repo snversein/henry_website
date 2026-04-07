@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from groq import Groq
 from dotenv import load_dotenv
 import os
@@ -12,6 +12,14 @@ client = Groq(api_key=os.getenv('GROQ_API_KEY'))
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('.', 'robots.txt')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('.', 'sitemap.xml')
 
 @app.route('/chatbot')
 def chatbot():
